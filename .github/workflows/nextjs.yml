@@ -27,12 +27,6 @@ concurrency:
 jobs:
   # Build job
   build:
-    env:  
-      NEXTAUTH_SECRET: ${{ secrets.NEXTAUTH_SECRET }}
-      DISCORD_CLIENT_SECRET: ${{ secrets.DISCORD_CLIENT_SECRET }}
-      DATABASE_URL: ${{ vars.DATABASE_URL }}
-      NEXTAUTH_URL: ${{ vars.NEXTAUTH_URL }}
-      DISCORD_CLIENT_ID: ${{ vars.DISCORD_CLIENT_ID }}
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
@@ -81,6 +75,12 @@ jobs:
         run: ${{ steps.detect-package-manager.outputs.manager }} ${{ steps.detect-package-manager.outputs.command }}
       - name: Build with Next.js
         run: ${{ steps.detect-package-manager.outputs.runner }} next build
+        env:
+          NEXTAUTH_SECRET: ${{ secrets.NEXTAUTH_SECRET }}
+          DISCORD_CLIENT_SECRET: ${{ secrets.DISCORD_CLIENT_SECRET }}
+          DATABASE_URL: ${{ vars.DATABASE_URL }}
+          NEXTAUTH_URL: ${{ vars.NEXTAUTH_URL }}
+          DISCORD_CLIENT_ID: ${{ vars.DISCORD_CLIENT_ID }}
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
         with:
