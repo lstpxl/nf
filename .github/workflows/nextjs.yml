@@ -27,6 +27,12 @@ concurrency:
 jobs:
   # Build job
   build:
+    env:  
+      NEXTAUTH_SECRET: ${{ secrets.NEXTAUTH_SECRET }}
+      DISCORD_CLIENT_SECRET: ${{ secrets.DISCORD_CLIENT_SECRET }}
+      DATABASE_URL: ${{ env.DATABASE_URL }}
+      NEXTAUTH_URL: ${{ env.NEXTAUTH_URL }}
+      DISCORD_CLIENT_ID: ${{ env.DISCORD_CLIENT_ID }}
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
